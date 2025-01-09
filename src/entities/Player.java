@@ -9,7 +9,6 @@ public class Player extends Entity {
     private int gravity = 1;
     private int velocityY = 0;
     public boolean onGround = true;
-    private int defaultYPosition;
     private int maxFallSpeed = 5;
 
 

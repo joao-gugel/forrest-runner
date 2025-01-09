@@ -1,6 +1,7 @@
 package main;
 
 import entities.Player;
+import levels.Enemies;
 import levels.World;
 
 import java.awt.*;
@@ -9,6 +10,7 @@ public class Game implements Runnable {
     public Player player;
     private Window window;
     private World world;
+    private Enemies enemies;
     private Thread gameThread;
     private GamePanel gamePanel;
 
@@ -25,6 +27,7 @@ public class Game implements Runnable {
 
     private void initDependencies() {
         this.player = new Player(Settings.TILE_SIZE, (Settings.SCREEN_HEIGHT - Settings.TILE_SIZE * 2));
+        this.enemies = new Enemies(this.gamePanel, 10, player);
         this.world = new World(this.gamePanel);
     }
 
@@ -35,12 +38,14 @@ public class Game implements Runnable {
 
     private void update() {
         this.player.update();
-        this.world.update(); // Adicionando a atualização do mundo
+        this.world.update();
+        this.enemies.update();
     }
 
     public void render(Graphics g) {
-        this.world.draw(g);  // Desenhar o mundo primeiro
-        this.player.draw(g); // Depois o player, para aparecer por cima
+        this.world.draw(g);
+        this.player.draw(g);
+        this.enemies.draw(g);
     }
 
     @Override
