@@ -21,7 +21,11 @@ public class KeyboardInput implements KeyListener {
     public void keyPressed(KeyEvent e) {
         int keyCode = e.getKeyCode();
 
-        if (keyCode == KeyEvent.VK_UP) this.gamePanel.game.player.jumping = true;
+        if (keyCode == KeyEvent.VK_UP) {
+            if (!this.gamePanel.game.player.jumping && this.gamePanel.game.player.onGround)
+                this.gamePanel.game.player.jumping = true;
+        }
+
         if (keyCode == KeyEvent.VK_DOWN) this.gamePanel.game.player.crouching = true;
     }
 
@@ -29,7 +33,6 @@ public class KeyboardInput implements KeyListener {
     public void keyReleased(KeyEvent e) {
         int keyCode = e.getKeyCode();
 
-        if (keyCode == KeyEvent.VK_UP) this.gamePanel.game.player.jumping = false;
         if (keyCode == KeyEvent.VK_DOWN) this.gamePanel.game.player.crouching = false;
     }
 }

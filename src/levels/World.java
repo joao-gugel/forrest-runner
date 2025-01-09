@@ -36,7 +36,7 @@ public class World {
     }
 
     private int getRandomGroundLength() {
-        int[] groundLengths = {12, 10, 20};
+        int[] groundLengths = {2, 1, 3};
         int randomLength = (int) (Math.random() * groundLengths.length);
         return groundLengths[randomLength];
     }
@@ -61,7 +61,6 @@ public class World {
 
     public void update() {
         scrollX -= SCROLL_SPEED;
-//        System.out.println(scrollX);
 
         for (Tile tile : groundTiles) {
             // Verifica se o tile saiu da tela, se sim, muda a posição para o final
@@ -72,6 +71,20 @@ public class World {
     }
 
     public void draw(Graphics g) {
+        // Drawing a blue sky
+        for (int i = 0; i < Settings.SCREEN_COLUMNS; i++) {
+            for (int j = 0; j < Settings.SCREEN_ROWS - 1; j++) {
+                g.setColor(Color.BLUE);
+                g.fillRect(
+                        i * Settings.TILE_SIZE,
+                        j * Settings.TILE_SIZE,
+                        Settings.TILE_SIZE,
+                        Settings.TILE_SIZE
+                );
+            }
+        }
+
+        // Drawing the ground
         for (Tile tile : groundTiles) {
             int drawX = (int) (tile.xPosition + scrollX);
             int drawY = Settings.SCREEN_HEIGHT - Settings.TILE_SIZE;
