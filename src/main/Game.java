@@ -3,6 +3,7 @@ package main;
 import entities.Player;
 import levels.Enemies;
 import levels.World;
+import ui.LevelInterface;
 
 import java.awt.*;
 
@@ -13,22 +14,25 @@ public class Game implements Runnable {
     private Enemies enemies;
     private Thread gameThread;
     private GamePanel gamePanel;
+    private LevelInterface levelInterface;
 
     private double deltaFrames = 0;
 
     public Game() {
         this.gamePanel = new GamePanel(this);
-        this.window = new Window(this.gamePanel);
 
         this.initDependencies();
+
+        this.window = new Window(this.gamePanel);
 
         this.startGame();
     }
 
     private void initDependencies() {
+        this.world = new World(this.gamePanel);
         this.player = new Player(Settings.TILE_SIZE, (Settings.SCREEN_HEIGHT - Settings.TILE_SIZE * 2));
         this.enemies = new Enemies(this.gamePanel, 5, player);
-        this.world = new World(this.gamePanel);
+        this.levelInterface = new LevelInterface(this.gamePanel);
     }
 
     private void startGame() {
@@ -40,12 +44,15 @@ public class Game implements Runnable {
         this.player.update();
         this.world.update();
         this.enemies.update();
+        this.levelInterface.update();
+        this.gamePanel.update();
     }
 
     public void render(Graphics g) {
         this.world.draw(g);
         this.player.draw((Graphics2D) g);
         this.enemies.draw(g);
+        this.levelInterface.draw((Graphics2D) g);
     }
 
     @Override
@@ -60,7 +67,7 @@ public class Game implements Runnable {
         long lastCheck = System.currentTimeMillis();
         double deltaU = 0;
 
-        while (true && this.gamePanel.game.player.isAlive()) {
+        while (this.gamePanel.game.player.isAlive()) {
             long currTime = System.nanoTime();
 
             deltaU += (currTime - prevTime) / timePerUpdate;

@@ -2,10 +2,11 @@ package levels;
 
 import main.GamePanel;
 import main.Settings;
+import main.Utils;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Random;
 
 public class World {
@@ -24,11 +25,11 @@ public class World {
         this.generateGround();
     }
 
-    private Color getRandomTileColor() {
-        Color desert = new Color(240, 214, 170);
-        Color grass = new Color(85, 107, 76);
+    private BufferedImage getRandomTileType() {
+        BufferedImage dustImage = Utils.loadImageAsset("/images/dust.png");
+        BufferedImage grassImage = Utils.loadImageAsset("/images/grass.png");
 
-        Color[] grounds = {desert, grass};
+        BufferedImage[] grounds = {dustImage, grassImage};
 
         int randomGround = (int) (Math.random() * grounds.length);
 
@@ -44,18 +45,18 @@ public class World {
     private void generateGround() {
         int tilesNeeded = Settings.SCREEN_COLUMNS * 4;
 
-        Color atualGroundColor = this.getRandomTileColor();
+        BufferedImage atualGroundType = this.getRandomTileType();
         int atualGroundLength = this.getRandomGroundLength();
 
         int groundLengthCounter = 0;
 
         for (int i = 0; i < tilesNeeded; i++) {
             if (groundLengthCounter == atualGroundLength) {
-                atualGroundColor = this.getRandomTileColor();
+                atualGroundType = this.getRandomTileType();
                 groundLengthCounter = 0;
             }
             groundLengthCounter++;
-            groundTiles.add(new Tile(i * Settings.TILE_SIZE, atualGroundColor));
+            groundTiles.add(new Tile(i * Settings.TILE_SIZE, atualGroundType));
         }
     }
 
@@ -74,7 +75,7 @@ public class World {
         // Drawing a blue sky
         for (int i = 0; i < Settings.SCREEN_COLUMNS; i++) {
             for (int j = 0; j < Settings.SCREEN_ROWS - 1; j++) {
-                g.setColor(Color.BLUE);
+                g.setColor(new Color(217, 237, 255));
                 g.fillRect(
                         i * Settings.TILE_SIZE,
                         j * Settings.TILE_SIZE,
@@ -89,12 +90,13 @@ public class World {
             int drawX = (int) (tile.xPosition + scrollX);
             int drawY = Settings.SCREEN_HEIGHT - Settings.TILE_SIZE;
 
-            g.setColor(tile.color);
-            g.fillRect(
+            g.drawImage(
+                    tile.image,
                     drawX,
                     drawY,
                     Settings.TILE_SIZE,
-                    Settings.TILE_SIZE
+                    Settings.TILE_SIZE,
+                    null
             );
         }
     }

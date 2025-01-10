@@ -4,15 +4,17 @@ import main.Settings;
 
 import java.awt.*;
 
+
 public class Player extends Entity {
     private int jumpSpeed = 25;
     private int gravity = 1;
     private int velocityY = 0;
     public boolean onGround = true;
-    private int maxFallSpeed = 5;
+    private int maxFallSpeed = 3;
     private boolean isAlive = true;
 
     private int health = 5;
+
 
     public Player(int x, int y) {
         this.defaultYPosition = y;
@@ -21,7 +23,6 @@ public class Player extends Entity {
 
         this.collisionWidth = Settings.TILE_SIZE / 2;
         this.collisionHeight = Settings.TILE_SIZE / 2;
-
 
         this.collisionX = this.x + (Settings.TILE_SIZE / 2) / 2;
         this.collisionY = this.y + Settings.TILE_SIZE / 2;
@@ -57,20 +58,7 @@ public class Player extends Entity {
 
     }
 
-
     public void draw(Graphics2D g) {
-        g.setColor(Color.white);
-        g.setFont(new Font("Arial", Font.PLAIN, 20));
-        g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,
-                RenderingHints.VALUE_TEXT_ANTIALIAS_LCD_HRGB);
-        g.drawString("Lives:", 40, 20);
-
-
-        g.setColor(Color.RED);
-        for (int i = 1; i <= health; i++) {
-            g.fillRect(i * 40, 30, 30, 30);
-        }
-
         g.setColor(Color.ORANGE);
         g.fillRect(this.x, this.y, Settings.TILE_SIZE, Settings.TILE_SIZE);
 

@@ -1,14 +1,15 @@
 package levels;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 public class Tile {
     int xPosition;
-    Color color;
+    BufferedImage image;
 
-    public Tile(int x, Color c) {
+    public Tile(int x, BufferedImage img) {
         this.xPosition = x;
-        this.color = c;
+        this.image = img;
     }
 
 }
