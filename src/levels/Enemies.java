@@ -30,7 +30,8 @@ public class Enemies {
 
     private void generateEnemies() {
         for (int i = 0; i < enemiesQty; i++) {
-            int xPosition = random.nextInt(Settings.SCREEN_WIDTH) + i * 300;
+            int xPosition = i * 300;
+            System.out.println(xPosition);
             // Above the ground.
             int yPosition = Settings.SCREEN_HEIGHT - Settings.TILE_SIZE * 2;
 
@@ -39,24 +40,35 @@ public class Enemies {
     }
 
     public void update() {
+        int enemiesCounter = 0;
         for (Enemy enemy : enemies) {
+            enemiesCounter++;
             enemy.x -= SCROLL_SPEED;
+
+            if (enemiesCounter == enemiesQty) enemy.x += 300;
 
             if (enemy.x + Settings.TILE_SIZE < 0) {
                 enemy.x += Settings.SCREEN_COLUMNS * Settings.TILE_SIZE + random.nextInt(300);
+                enemy.hasCollided = false;
             }
 
-            if (this.isColliding(player, enemy)) {
-                System.out.println("Game over!");
+            if (this.isColliding(player, enemy) && !enemy.hasCollided) {
+                this.gamePanel.game.player.decreaseHealth();
+                enemy.hasCollided = true;
+                if (this.gamePanel.game.player.getHealth() == 0) {
+                    this.gamePanel.game.player.setAlive(false);
+                    System.out.println("GAME OVER!");
+                }
             }
         }
     }
 
     private boolean isColliding(Player player, Enemy enemy) {
-        return (player.x + Settings.TILE_SIZE > enemy.x &&
-                player.x < enemy.x + Settings.TILE_SIZE) &&
-                (player.y + Settings.TILE_SIZE > enemy.y &&
-                        player.y < enemy.y + Settings.TILE_SIZE);
+        // Cria dois retângulos, com coordenadas e tamanhos
+        Rectangle playerRect = new Rectangle(player.collisionX, player.collisionY, player.collisionWidth, player.collisionHeight);
+        Rectangle enemyRect = new Rectangle(enemy.x, enemy.y, Settings.TILE_SIZE, Settings.TILE_SIZE);
+        // Ve se um retângulo está dentro do outro.
+        return playerRect.intersects(enemyRect);
     }
 
     public void draw(Graphics g) {

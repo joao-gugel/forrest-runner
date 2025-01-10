@@ -10,12 +10,21 @@ public class Player extends Entity {
     private int velocityY = 0;
     public boolean onGround = true;
     private int maxFallSpeed = 5;
+    private boolean isAlive = true;
 
+    private int health = 5;
 
     public Player(int x, int y) {
         this.defaultYPosition = y;
         this.x = x;
         this.y = y;
+
+        this.collisionWidth = Settings.TILE_SIZE / 2;
+        this.collisionHeight = Settings.TILE_SIZE / 2;
+
+
+        this.collisionX = this.x + (Settings.TILE_SIZE / 2) / 2;
+        this.collisionY = this.y + Settings.TILE_SIZE / 2;
     }
 
     public void update() {
@@ -42,13 +51,46 @@ public class Player extends Entity {
                 this.onGround = true;
                 this.jumping = false;
             }
+
+            this.collisionY = this.y + Settings.TILE_SIZE / 2;
         }
 
     }
 
 
-    public void draw(Graphics g) {
+    public void draw(Graphics2D g) {
+        g.setColor(Color.white);
+        g.setFont(new Font("Arial", Font.PLAIN, 20));
+        g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,
+                RenderingHints.VALUE_TEXT_ANTIALIAS_LCD_HRGB);
+        g.drawString("Lives:", 40, 20);
+
+
+        g.setColor(Color.RED);
+        for (int i = 1; i <= health; i++) {
+            g.fillRect(i * 40, 30, 30, 30);
+        }
+
         g.setColor(Color.ORANGE);
         g.fillRect(this.x, this.y, Settings.TILE_SIZE, Settings.TILE_SIZE);
+
+        g.setColor(Color.BLACK);
+        g.drawRect(this.collisionX, this.collisionY, this.collisionWidth, this.collisionHeight);
+    }
+
+    public boolean isAlive() {
+        return isAlive;
+    }
+
+    public void setAlive(boolean alive) {
+        isAlive = alive;
+    }
+
+    public int getHealth() {
+        return health;
+    }
+
+    public void decreaseHealth() {
+        this.health -= 1;
     }
 }

@@ -27,7 +27,7 @@ public class Game implements Runnable {
 
     private void initDependencies() {
         this.player = new Player(Settings.TILE_SIZE, (Settings.SCREEN_HEIGHT - Settings.TILE_SIZE * 2));
-        this.enemies = new Enemies(this.gamePanel, 10, player);
+        this.enemies = new Enemies(this.gamePanel, 5, player);
         this.world = new World(this.gamePanel);
     }
 
@@ -44,7 +44,7 @@ public class Game implements Runnable {
 
     public void render(Graphics g) {
         this.world.draw(g);
-        this.player.draw(g);
+        this.player.draw((Graphics2D) g);
         this.enemies.draw(g);
     }
 
@@ -60,7 +60,7 @@ public class Game implements Runnable {
         long lastCheck = System.currentTimeMillis();
         double deltaU = 0;
 
-        while (true) {
+        while (true && this.gamePanel.game.player.isAlive()) {
             long currTime = System.nanoTime();
 
             deltaU += (currTime - prevTime) / timePerUpdate;
