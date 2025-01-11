@@ -6,7 +6,7 @@ import java.awt.*;
 
 
 public class Player extends Entity {
-    private int jumpSpeed = 25;
+    private int jumpSpeed = 20;
     private int gravity = 1;
     private int velocityY = 0;
     public boolean onGround = true;
@@ -55,7 +55,6 @@ public class Player extends Entity {
 
             this.collisionY = this.y + Settings.TILE_SIZE / 2;
         }
-
     }
 
     public void draw(Graphics2D g) {

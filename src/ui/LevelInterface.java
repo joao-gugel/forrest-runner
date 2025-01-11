@@ -16,8 +16,6 @@ public class LevelInterface {
     private Color mainColor;
     private Color secondaryColor;
 
-    private int distanceCounter;
-
     public LevelInterface(GamePanel gamePanel) {
         this.gamePanel = gamePanel;
         this.mainFont = new Font("Arial", Font.PLAIN, 24);
@@ -32,9 +30,8 @@ public class LevelInterface {
         this.heartImage = Utils.loadImageAsset("/images/heart.png");
     }
 
-    // At every update, the player moves 1px (or not lol)
     public void update() {
-        this.distanceCounter++;
+
     }
 
     public void draw(Graphics2D g) {
@@ -64,6 +61,6 @@ public class LevelInterface {
     private void drawPlayerDistance(Graphics2D g) {
         g.setFont(this.secondaryFont);
         g.setColor(this.secondaryColor);
-        g.drawString("Distancia: " + this.distanceCounter / 100 + "M", 40, 80);
+        g.drawString("Tempo: " + this.gamePanel.secondsTimeCounter + " seg", 40, 80);
     }
 }

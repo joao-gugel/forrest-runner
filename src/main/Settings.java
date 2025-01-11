@@ -9,7 +9,10 @@ public class Settings {
     public static final int SCREEN_WIDTH = SCREEN_COLUMNS * TILE_SIZE;
     public static final int SCREEN_HEIGHT = SCREEN_ROWS * TILE_SIZE;
 
-    public static final int FPS_SET = 60;
+    public static final int FPS_SET = 240;
     public static final int UPS_SET = 120;
+
+    public static final float WORLD_SCROLL_SPEED = 3f;
+    public static final int MAX_VELOCITY_MULTIPLIED_QTY = 5;
 
 }

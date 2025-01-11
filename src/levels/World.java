@@ -13,7 +13,6 @@ public class World {
     private GamePanel gamePanel;
     private ArrayList<Tile> groundTiles;
 
-    private final float SCROLL_SPEED = 2f;
     private float scrollX = 0;
 
     private Random random = new Random();
@@ -61,7 +60,7 @@ public class World {
     }
 
     public void update() {
-        scrollX -= SCROLL_SPEED;
+        scrollX -= Settings.WORLD_SCROLL_SPEED + this.gamePanel.velocityAdded;
 
         for (Tile tile : groundTiles) {
             // Verifica se o tile saiu da tela, se sim, muda a posição para o final

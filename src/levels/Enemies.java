@@ -17,7 +17,6 @@ public class Enemies {
     private ArrayList<Enemy> enemies;
     private Player player;
 
-    private final float SCROLL_SPEED = 2f;
     private Random random = new Random();
 
     public Enemies(GamePanel gamePanel, int enemiesQty, Player player) {
@@ -33,8 +32,11 @@ public class Enemies {
     private BufferedImage getRandomEnemyType() {
         BufferedImage rockOneImage = Utils.loadImageAsset("/images/rock1.png");
         BufferedImage rockTwoImage = Utils.loadImageAsset("/images/rock2.png");
+        BufferedImage bushOneImage = Utils.loadImageAsset("/images/bush1.png");
+        BufferedImage bushTwoImage = Utils.loadImageAsset("/images/bush2.png");
+        BufferedImage treeOneImage = Utils.loadImageAsset("/images/tree1.png");
 
-        BufferedImage[] enemies = {rockOneImage, rockTwoImage};
+        BufferedImage[] enemies = {rockOneImage, rockTwoImage, bushOneImage, bushTwoImage, treeOneImage};
 
         int randomEnemy = (int) (Math.random() * enemies.length);
 
@@ -46,6 +48,7 @@ public class Enemies {
             BufferedImage enemyTypeImg = getRandomEnemyType();
 
             int xPosition = i * 500;
+            System.out.println(xPosition);
 
             // Above the ground.
             int yPosition = Settings.SCREEN_HEIGHT - Settings.TILE_SIZE * 2;
@@ -55,17 +58,13 @@ public class Enemies {
     }
 
     public void update() {
-        int enemiesCounter = 0;
         for (Enemy enemy : enemies) {
-            enemiesCounter++;
-            enemy.x -= SCROLL_SPEED;
-
-            if (enemiesCounter == enemiesQty) enemy.x += 1200;
-
+            enemy.x -= Settings.WORLD_SCROLL_SPEED + this.gamePanel.velocityAdded;
+            ;
             enemy.collisionX = enemy.x;
 
             if (enemy.x + Settings.TILE_SIZE < 0) {
-                enemy.x += Settings.SCREEN_WIDTH + 500;
+                enemy.x = getMaxEnemyX() + (400 + (int) (Math.random() * 200));
                 enemy.hasCollided = false;
             }
 
@@ -80,6 +79,16 @@ public class Enemies {
 
             enemy.collisionX = enemy.x;
         }
+    }
+
+    private int getMaxEnemyX() {
+        int maxX = 0;
+        for (Enemy enemy : enemies) {
+            if (enemy.x > maxX) {
+                maxX = enemy.x;
+            }
+        }
+        return maxX;
     }
 
     private boolean isColliding(Player player, Enemy enemy) {

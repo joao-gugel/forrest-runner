@@ -8,6 +8,9 @@ import java.awt.*;
 public class GamePanel extends JPanel {
     private KeyboardInput keyboardInput;
     public Game game;
+    public int secondsTimeCounter;
+    private int updatesNum = 0;
+    public int velocityAdded = 0;
 
     public GamePanel(Game game) {
         this.game = game;
@@ -22,6 +25,17 @@ public class GamePanel extends JPanel {
 
 
     public void update() {
+        if (updatesNum == 120) {
+            this.secondsTimeCounter++;
+            this.handleAddedVelocity();
+            this.updatesNum = 0;
+        } else
+            updatesNum++;
+    }
+
+    private void handleAddedVelocity() {
+        if (secondsTimeCounter == 10) velocityAdded = 1;
+        if (secondsTimeCounter == 20) velocityAdded = 2;
     }
 
     public void paintComponent(Graphics g) {

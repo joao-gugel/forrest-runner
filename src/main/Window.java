@@ -11,6 +11,7 @@ public class Window extends JFrame {
 
         this.setLocationRelativeTo(null);
         this.setTitle("Forrest Runner");
+        this.setResizable(false);
         this.setVisible(true);
         this.pack();
 

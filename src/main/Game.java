@@ -31,7 +31,7 @@ public class Game implements Runnable {
     private void initDependencies() {
         this.world = new World(this.gamePanel);
         this.player = new Player(Settings.TILE_SIZE, (Settings.SCREEN_HEIGHT - Settings.TILE_SIZE * 2));
-        this.enemies = new Enemies(this.gamePanel, 5, player);
+        this.enemies = new Enemies(this.gamePanel, 20, player);
         this.levelInterface = new LevelInterface(this.gamePanel);
     }
 
@@ -41,11 +41,11 @@ public class Game implements Runnable {
     }
 
     private void update() {
-        this.player.update();
         this.world.update();
+        this.player.update();
         this.enemies.update();
-        this.levelInterface.update();
         this.gamePanel.update();
+        this.levelInterface.update();
     }
 
     public void render(Graphics g) {
@@ -57,41 +57,38 @@ public class Game implements Runnable {
 
     @Override
     public void run() {
-        double timePerFrame = 1_000_000_000.0 / Settings.FPS_SET;
         double timePerUpdate = 1_000_000_000.0 / Settings.UPS_SET;
+        double timePerFrame = 1_000_000_000.0 / Settings.FPS_SET;
 
         long prevTime = System.nanoTime();
-        int FPS = 0;
-        int UPDATES = 0;
-
-        long lastCheck = System.currentTimeMillis();
         double deltaU = 0;
+        double deltaF = 0;
 
         while (this.gamePanel.game.player.isAlive()) {
             long currTime = System.nanoTime();
-
-            deltaU += (currTime - prevTime) / timePerUpdate;
-            deltaFrames += (currTime - prevTime) / timePerFrame;
+            double elapsedTime = currTime - prevTime;
             prevTime = currTime;
+
+            deltaU += elapsedTime / timePerUpdate;
+            deltaF += elapsedTime / timePerFrame;
 
             if (deltaU >= 1) {
                 update();
-                UPDATES++;
                 deltaU--;
             }
 
-            if (deltaFrames >= 1) {
+            if (deltaF >= 1) {
                 gamePanel.repaint();
-                deltaFrames--;
-                FPS++;
+                deltaF--;
             }
 
-            if (System.currentTimeMillis() - lastCheck >= 1000) {
-                lastCheck = System.currentTimeMillis();
-                System.out.println("FPS: " + FPS + " | UPS: " + UPDATES);
-                FPS = 0;
-                UPDATES = 0;
+            // Controle de taxa de frames
+            try {
+                Thread.sleep(1); // Dá tempo ao processador para outras tarefas
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
         }
     }
+
 }
