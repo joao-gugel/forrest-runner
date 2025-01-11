@@ -11,7 +11,6 @@ public class GamePanel extends JPanel {
     public int secondsTimeCounter;
     public int updatesNum = 0;
     public int velocityAdded = 0;
-    public Sound sound;
 
     public GamePanel(Game game) {
         this.game = game;
@@ -22,7 +21,6 @@ public class GamePanel extends JPanel {
 
         Dimension size = new Dimension(Settings.SCREEN_WIDTH, Settings.SCREEN_HEIGHT);
         this.setPreferredSize(size);
-        this.sound = new Sound();
     }
 
 

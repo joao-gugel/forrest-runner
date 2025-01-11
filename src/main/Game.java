@@ -20,8 +20,6 @@ public class Game implements Runnable {
     private LevelInterface levelInterface;
     private StartGameInterface startGameInterface;
 
-    private double deltaFrames = 0;
-
     public boolean firstTimePlayed = true;
 
     public Game() {
