@@ -1,6 +1,8 @@
 package main;
 
 import javax.imageio.ImageIO;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
 import java.awt.image.BufferedImage;
 import java.io.InputStream;
 

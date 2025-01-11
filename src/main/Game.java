@@ -4,6 +4,7 @@ import entities.Player;
 import levels.Enemies;
 import levels.World;
 import ui.LevelInterface;
+import ui.StartGameInterface;
 
 import java.awt.*;
 
@@ -15,6 +16,7 @@ public class Game implements Runnable {
     private Thread gameThread;
     private GamePanel gamePanel;
     private LevelInterface levelInterface;
+    private StartGameInterface startGameInterface;
 
     private double deltaFrames = 0;
 
@@ -33,9 +35,10 @@ public class Game implements Runnable {
         this.player = new Player(Settings.TILE_SIZE, (Settings.SCREEN_HEIGHT - Settings.TILE_SIZE * 2));
         this.enemies = new Enemies(this.gamePanel, 20, player);
         this.levelInterface = new LevelInterface(this.gamePanel);
+        this.startGameInterface = new StartGameInterface(this.gamePanel);
     }
 
-    private void startGame() {
+    public void startGame() {
         this.gameThread = new Thread(this);
         gameThread.start();
     }
@@ -53,6 +56,8 @@ public class Game implements Runnable {
         this.player.draw((Graphics2D) g);
         this.enemies.draw(g);
         this.levelInterface.draw((Graphics2D) g);
+
+        if (!this.player.isAlive()) this.startGameInterface.draw((Graphics2D) g);
     }
 
     @Override

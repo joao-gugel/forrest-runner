@@ -1,6 +1,7 @@
 package entities;
 
 import main.Settings;
+import main.Sound;
 
 import java.awt.*;
 
@@ -11,7 +12,7 @@ public class Player extends Entity {
     private int velocityY = 0;
     public boolean onGround = true;
     private int maxFallSpeed = 3;
-    private boolean isAlive = true;
+    private boolean isAlive = false;
 
     private int health = 5;
 

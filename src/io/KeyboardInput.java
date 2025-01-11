@@ -21,9 +21,18 @@ public class KeyboardInput implements KeyListener {
     public void keyPressed(KeyEvent e) {
         int keyCode = e.getKeyCode();
 
+        if (keyCode == KeyEvent.VK_SPACE && !this.gamePanel.game.player.isAlive()) {
+            this.gamePanel.game.player.setAlive(true);
+            this.gamePanel.game.startGame();
+        }
+
         if (keyCode == KeyEvent.VK_UP) {
-            if (!this.gamePanel.game.player.jumping && this.gamePanel.game.player.onGround)
+            if (!this.gamePanel.game.player.jumping && this.gamePanel.game.player.onGround) {
+                this.gamePanel.sound.setFile(0);
+                this.gamePanel.sound.play();
                 this.gamePanel.game.player.jumping = true;
+            }
+
         }
 
         if (keyCode == KeyEvent.VK_DOWN) this.gamePanel.game.player.crouching = true;
