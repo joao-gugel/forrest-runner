@@ -31,5 +31,8 @@ public class StartGameInterface {
         g.setColor(new Color(220, 220, 220));
         g.setFont(new Font("Arial", Font.BOLD, 20));
         g.drawString("PRESS SPACE TO START", Settings.SCREEN_WIDTH / 2 - 110, Settings.SCREEN_HEIGHT / 2 + Settings.TILE_SIZE);
+        g.setFont(new Font("Arial", Font.BOLD, 14));
+        g.drawString("ARROW UP TO JUMP", Settings.SCREEN_WIDTH / 2 - 70, (Settings.SCREEN_HEIGHT / 2 + Settings.TILE_SIZE) + 50);
+        g.drawString("ARROW DOWN TO INCREASE FALL SPEED", Settings.SCREEN_WIDTH / 2 - 140, (Settings.SCREEN_HEIGHT / 2 + Settings.TILE_SIZE) + 70);
     }
 }

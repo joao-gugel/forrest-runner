@@ -61,6 +61,6 @@ public class LevelInterface {
     private void drawPlayerDistance(Graphics2D g) {
         g.setFont(this.secondaryFont);
         g.setColor(this.secondaryColor);
-        g.drawString("Tempo: " + this.gamePanel.secondsTimeCounter + " seg", 40, 80);
+        g.drawString("Time: " + this.gamePanel.secondsTimeCounter + " sec", 40, 84);
     }
 }
