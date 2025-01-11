@@ -3,6 +3,7 @@ package main;
 import entities.Player;
 import levels.Enemies;
 import levels.World;
+import levels.WorldBackground;
 import ui.LevelInterface;
 import ui.StartGameInterface;
 
@@ -12,6 +13,7 @@ public class Game implements Runnable {
     public Player player;
     private Window window;
     private World world;
+    private WorldBackground worldBackground;
     private Enemies enemies;
     private Thread gameThread;
     private GamePanel gamePanel;
@@ -32,6 +34,7 @@ public class Game implements Runnable {
 
     private void initDependencies() {
         this.world = new World(this.gamePanel);
+        this.worldBackground = new WorldBackground(this.gamePanel);
         this.player = new Player(Settings.TILE_SIZE, (Settings.SCREEN_HEIGHT - Settings.TILE_SIZE * 2));
         this.enemies = new Enemies(this.gamePanel, 20, player);
         this.levelInterface = new LevelInterface(this.gamePanel);
@@ -45,6 +48,7 @@ public class Game implements Runnable {
 
     private void update() {
         this.world.update();
+        this.worldBackground.update();
         this.player.update();
         this.enemies.update();
         this.gamePanel.update();
@@ -53,6 +57,7 @@ public class Game implements Runnable {
 
     public void render(Graphics g) {
         this.world.draw(g);
+        this.worldBackground.draw(g);
         this.player.draw((Graphics2D) g);
         this.enemies.draw(g);
         this.levelInterface.draw((Graphics2D) g);

@@ -38,6 +38,7 @@ public class GamePanel extends JPanel {
     private void handleAddedVelocity() {
         if (secondsTimeCounter == 10) velocityAdded = 1;
         if (secondsTimeCounter == 20) velocityAdded = 2;
+        if (secondsTimeCounter == 60) velocityAdded = 3;
     }
 
     public void paintComponent(Graphics g) {

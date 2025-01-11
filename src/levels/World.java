@@ -61,7 +61,10 @@ public class World {
 
     public void update() {
         scrollX -= Settings.WORLD_SCROLL_SPEED + this.gamePanel.velocityAdded;
+        this.updateTilesPos(scrollX);
+    }
 
+    private void updateTilesPos(float scrollX) {
         for (Tile tile : groundTiles) {
             // Verifica se o tile saiu da tela, se sim, muda a posição para o final
             if (tile.xPosition + scrollX + Settings.TILE_SIZE < 0) {
@@ -71,7 +74,11 @@ public class World {
     }
 
     public void draw(Graphics g) {
-        // Drawing a blue sky
+        this.drawSky(g);
+        this.drawGround(g);
+    }
+
+    private void drawSky(Graphics g) {
         for (int i = 0; i < Settings.SCREEN_COLUMNS; i++) {
             for (int j = 0; j < Settings.SCREEN_ROWS - 1; j++) {
                 g.setColor(new Color(217, 237, 255));
@@ -83,8 +90,9 @@ public class World {
                 );
             }
         }
+    }
 
-        // Drawing the ground
+    private void drawGround(Graphics g) {
         for (Tile tile : groundTiles) {
             int drawX = (int) (tile.xPosition + scrollX);
             int drawY = Settings.SCREEN_HEIGHT - Settings.TILE_SIZE;
