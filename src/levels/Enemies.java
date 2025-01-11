@@ -45,12 +45,11 @@ public class Enemies {
 
     private void generateEnemies() {
         enemies.clear();
-        
+
         for (int i = 0; i < enemiesQty; i++) {
             BufferedImage enemyTypeImg = getRandomEnemyType();
 
             int xPosition = i * 500;
-            System.out.println(xPosition);
 
             // Above the ground.
             int yPosition = Settings.SCREEN_HEIGHT - Settings.TILE_SIZE * 2;
@@ -66,7 +65,7 @@ public class Enemies {
             enemy.collisionX = enemy.x;
 
             if (enemy.x + Settings.TILE_SIZE < 0) {
-                enemy.x = getMaxEnemyX() + (400 + (int) (Math.random() * 200));
+                enemy.x = getMaxEnemyX() + (300 + (int) (Math.random() * 200));
                 enemy.hasCollided = false;
             }
 

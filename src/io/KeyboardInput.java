@@ -43,7 +43,7 @@ public class KeyboardInput implements KeyListener {
             if (this.gamePanel.game.player.jumping && !this.gamePanel.game.player.onGround) {
 //                this.gamePanel.sound.setFile(0);
 //                this.gamePanel.sound.play();
-                this.gamePanel.game.player.maxFallSpeed = 6;
+                this.gamePanel.game.player.maxFallSpeed = 8;
             }
         }
     }

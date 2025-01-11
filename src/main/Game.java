@@ -38,7 +38,7 @@ public class Game implements Runnable {
         this.world = new World(this.gamePanel);
         this.worldBackground = new WorldBackground(this.gamePanel);
         this.player = new Player(Settings.TILE_SIZE, (Settings.SCREEN_HEIGHT - Settings.TILE_SIZE * 2), this.gamePanel);
-        this.enemies = new Enemies(this.gamePanel, 20, player);
+        this.enemies = new Enemies(this.gamePanel, 30, player);
         this.levelInterface = new LevelInterface(this.gamePanel);
         this.startGameInterface = new StartGameInterface(this.gamePanel);
     }

@@ -43,7 +43,7 @@ public class World {
 
     private void generateGround() {
         this.groundTiles.clear();
-        int tilesNeeded = Settings.SCREEN_COLUMNS * 4;
+        int tilesNeeded = Settings.SCREEN_COLUMNS * 8;
 
         BufferedImage atualGroundType = this.getRandomTileType();
         int atualGroundLength = this.getRandomGroundLength();

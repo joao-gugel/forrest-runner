@@ -13,6 +13,4 @@ public class Settings {
     public static final int UPS_SET = 120;
 
     public static final float WORLD_SCROLL_SPEED = 3f;
-    public static final int MAX_VELOCITY_MULTIPLIED_QTY = 5;
-
 }
