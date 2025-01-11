@@ -22,6 +22,10 @@ public class KeyboardInput implements KeyListener {
         int keyCode = e.getKeyCode();
 
         if (keyCode == KeyEvent.VK_SPACE && !this.gamePanel.game.player.isAlive()) {
+            if (!this.gamePanel.game.firstTimePlayed) {
+                this.gamePanel.game.reset();
+            }
+            this.gamePanel.game.firstTimePlayed = false;
             this.gamePanel.game.player.setAlive(true);
             this.gamePanel.game.startGame();
         }
@@ -35,13 +39,20 @@ public class KeyboardInput implements KeyListener {
 
         }
 
-        if (keyCode == KeyEvent.VK_DOWN) this.gamePanel.game.player.crouching = true;
+        if (keyCode == KeyEvent.VK_DOWN) {
+            if (this.gamePanel.game.player.jumping && !this.gamePanel.game.player.onGround) {
+//                this.gamePanel.sound.setFile(0);
+//                this.gamePanel.sound.play();
+                this.gamePanel.game.player.maxFallSpeed = 6;
+            }
+        }
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
         int keyCode = e.getKeyCode();
 
-        if (keyCode == KeyEvent.VK_DOWN) this.gamePanel.game.player.crouching = false;
+        if (keyCode == KeyEvent.VK_DOWN)
+            this.gamePanel.game.player.maxFallSpeed = 3;
     }
 }

@@ -44,6 +44,8 @@ public class Enemies {
     }
 
     private void generateEnemies() {
+        enemies.clear();
+        
         for (int i = 0; i < enemiesQty; i++) {
             BufferedImage enemyTypeImg = getRandomEnemyType();
 
@@ -103,5 +105,9 @@ public class Enemies {
         for (Enemy enemy : enemies) {
             g.drawImage(enemy.image, enemy.x, enemy.y, Settings.TILE_SIZE, Settings.TILE_SIZE, null);
         }
+    }
+
+    public void reset() {
+        this.generateEnemies();
     }
 }

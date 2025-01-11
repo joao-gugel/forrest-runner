@@ -22,6 +22,8 @@ public class Game implements Runnable {
 
     private double deltaFrames = 0;
 
+    public boolean firstTimePlayed = true;
+
     public Game() {
         this.gamePanel = new GamePanel(this);
 
@@ -35,7 +37,7 @@ public class Game implements Runnable {
     private void initDependencies() {
         this.world = new World(this.gamePanel);
         this.worldBackground = new WorldBackground(this.gamePanel);
-        this.player = new Player(Settings.TILE_SIZE, (Settings.SCREEN_HEIGHT - Settings.TILE_SIZE * 2));
+        this.player = new Player(Settings.TILE_SIZE, (Settings.SCREEN_HEIGHT - Settings.TILE_SIZE * 2), this.gamePanel);
         this.enemies = new Enemies(this.gamePanel, 20, player);
         this.levelInterface = new LevelInterface(this.gamePanel);
         this.startGameInterface = new StartGameInterface(this.gamePanel);
@@ -63,6 +65,14 @@ public class Game implements Runnable {
         this.levelInterface.draw((Graphics2D) g);
 
         if (!this.player.isAlive()) this.startGameInterface.draw((Graphics2D) g);
+    }
+
+    public void reset() {
+        this.world.reset();
+        this.player.reset();
+        this.enemies.reset();
+        this.gamePanel.reset();
+        this.worldBackground.reset();
     }
 
     @Override

@@ -30,16 +30,17 @@ public class WorldBackground {
 
     private void initializeTrees() {
         BufferedImage treeImage = Utils.loadImageAsset("/images/decoration-tree.png");
+        trees.clear();
 
         for (int i = 0; i < Settings.SCREEN_COLUMNS + 1; i++) {
             int xPosition = i * Settings.TILE_SIZE;
             trees.add(new Tile(xPosition, treeImage));
-
         }
     }
 
     private void initializeMounts() {
         BufferedImage mountImage = Utils.loadImageAsset("/images/mount1.png");
+        mounts.clear();
 
         for (int i = 0; i < Settings.SCREEN_COLUMNS / 2 + 1; i++) {
             int xPosition = i * Settings.TILE_SIZE * 12;
@@ -65,7 +66,7 @@ public class WorldBackground {
     }
 
     private void updateMounts() {
-        mountScrollX -= Settings.WORLD_SCROLL_SPEED - 3 + this.gamePanel.velocityAdded;
+        mountScrollX -= Settings.WORLD_SCROLL_SPEED - 2.5f + this.gamePanel.velocityAdded;
 
         for (Tile mount : mounts) {
             if (mount.xPosition + mountScrollX + Settings.TILE_SIZE * 12 < 0) {
@@ -102,5 +103,12 @@ public class WorldBackground {
                     null
             );
         }
+    }
+
+    public void reset() {
+        this.treeScrollX = 0;
+        this.mountScrollX = 0;
+        this.initializeMounts();
+        this.initializeTrees();
     }
 }

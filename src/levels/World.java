@@ -42,6 +42,7 @@ public class World {
     }
 
     private void generateGround() {
+        this.groundTiles.clear();
         int tilesNeeded = Settings.SCREEN_COLUMNS * 4;
 
         BufferedImage atualGroundType = this.getRandomTileType();
@@ -106,5 +107,10 @@ public class World {
                     null
             );
         }
+    }
+
+    public void reset() {
+        this.scrollX = 0;
+        this.generateGround();
     }
 }
