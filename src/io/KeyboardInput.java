@@ -33,8 +33,8 @@ public class KeyboardInput implements KeyListener {
         if (keyCode == KeyEvent.VK_UP) {
             if (!this.gamePanel.game.player.jumping && this.gamePanel.game.player.onGround) {
                 this.gamePanel.game.player.jumping = true;
+                this.gamePanel.game.jumpSound.play();
             }
-
         }
 
         if (keyCode == KeyEvent.VK_DOWN) {

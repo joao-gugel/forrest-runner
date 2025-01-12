@@ -20,12 +20,16 @@ public class Game implements Runnable {
     private LevelInterface levelInterface;
     private StartGameInterface startGameInterface;
 
+    public Sound jumpSound;
+    public Sound hitSound;
+
     public boolean firstTimePlayed = true;
 
     public Game() {
         this.gamePanel = new GamePanel(this);
 
         this.initDependencies();
+        this.initSounds();
 
         this.window = new Window(this.gamePanel);
 
@@ -39,6 +43,14 @@ public class Game implements Runnable {
         this.enemies = new Enemies(this.gamePanel, 30, player);
         this.levelInterface = new LevelInterface(this.gamePanel);
         this.startGameInterface = new StartGameInterface(this.gamePanel);
+    }
+
+    private void initSounds() {
+        this.hitSound = new Sound();
+        this.hitSound.setFile(0);
+
+        this.jumpSound = new Sound();
+        this.jumpSound.setFile(1);
     }
 
     public void startGame() {

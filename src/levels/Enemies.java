@@ -70,6 +70,7 @@ public class Enemies {
             }
 
             if (this.isColliding(player, enemy) && !enemy.hasCollided) {
+                this.gamePanel.game.hitSound.play();
                 this.gamePanel.game.player.decreaseHealth();
                 enemy.hasCollided = true;
                 if (this.gamePanel.game.player.getHealth() == 0) {
